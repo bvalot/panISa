@@ -36,6 +36,9 @@ def groupeposition(positions):
     """Fonction to parse the positions and regroup start and end clip positions to a couple"""
     couples = []
     ##TODO
+    for pos in positions.nextposition():
+        ##TODO
+        pass
     return couples
     
 

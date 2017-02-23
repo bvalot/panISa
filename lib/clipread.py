@@ -1,4 +1,4 @@
-h#!/usr/bin/python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 ##Copyright (c) 2017 Benoit Valot and Panisa Treepong

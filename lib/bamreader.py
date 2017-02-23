@@ -21,7 +21,9 @@ def parse(bamfile, minqual):
         if isclip(read) is False:
             continue
         clip = ClipRead(read)
-        positions.getposition(bamhandle.get_reference_name(read.reference_id), clip.getclippos())
+        pos = positions.getposition(bamhandle.get_reference_name(read.reference_id), \
+                                    clip.getclippos())
+        pos.addclipread(clip)
         
     bamhandle.close()
     

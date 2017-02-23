@@ -8,7 +8,7 @@
 
 
 class Position():
-    """Object that store clip read at a genome position"""
+    """Class that store clip read at a genome position"""
     def __init__(self, chrom, pos):
         self.chrom = chrom
         self.pos = pos
