@@ -13,12 +13,12 @@ import argparse
 import os
 import tempfile
 from lib import bamreader
-from lib import couple
+from lib.couple  import Couples
 
 desc = "Search integrative element (IS) insertion on a genome using BAM alignment"
 command = argparse.ArgumentParser(prog='panISa.py', \
     description=desc, usage='%(prog)s [options] bam')
-command.add_argument('-o', '--out', nargs="?", \
+command.add_argument('-o', '--output', nargs="?", \
     type=argparse.FileType("w"), default=sys.stdout, \
     help='Return list of IS insertion by alignment, default=stdout')
 command.add_argument('-q', '--quality', nargs="?", \
@@ -42,15 +42,22 @@ command.add_argument('-v', '--version', action='version', \
 if __name__=='__main__':
     """Performed job on execution script""" 
     args = command.parse_args()
+    output = args.output
     ##Search clip read on bam by position with min quality
     positions = bamreader.parse(args.bam.name, args.quality)
 
     ##filter positions with not enought clipread
     positions.filterposition(args.minimun)
-    
+    # for pos in positions.nextposition():
+    #     output.write(str(pos) + "\n")
+        
     ##find close position with both start and end clip to make a couple
-    couples = couple.groupeposition(positions)
-    
+    couples = Couples()
+    couples.groupeposition(positions, args.size)
+    couples.filteroverlapcouple()
+    for couple in couples:
+        output.write(str(couple) + "\n")
+        
     ##Create consensus and search inverted repeat sequence on it
     for couple in couples:
         couple.searchir()

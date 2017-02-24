@@ -21,6 +21,12 @@ class Position():
         else:
             self.clipend.append(clipread)
 
+    def removeclipside(self, minread):
+        if len(self.clipstart) < minread:
+            self.clipstart = []
+        if len(self.clipend) < minread:
+            self.clipend = []
+            
     def getconsensusstart(self):
         ##TODO
         return ""
@@ -34,7 +40,22 @@ class Position():
         
     def __repr__(self):
     	return self.chrom + " : " + str(self.pos)
-    
+
+    def __str__(self):
+        return "\t".join([self.chrom, str(self.pos), str(len(self.clipstart)), \
+                          str(len(self.clipend))])
+    def __eq__(self, other):
+        if self.chrom == other.chrom and self.pos == other.pos:
+            return True
+        else:
+            return False
+
+    def __lt__(self, other):
+        if self.chrom == other.chrom:
+            return self.pos < other.pos
+        else:
+            return self.chrom < other.chrom
+        
 
 class Positions():
     """Container of all positions with a clip read"""
@@ -42,20 +63,24 @@ class Positions():
         self.posdict = {}
 
     def getposition(self, chrom, pos):
-        return self.posdict.setdefault(chom+"_"+str(pos), Position(chom, pos))
+        return self.posdict.setdefault(chrom+"_"+str(pos), Position(chrom, pos))
 
     def filterposition(self, minread):
         """Filter the positions to remove position insufficiant minread"""
         tmpdict = {}
         for item in self.posdict.items():
             if len(item[1]) >= minread:
-                tmpdict[item[O]] = item[1]
+                item[1].removeclipside(minread)
+                tmpdict[item[0]] = item[1]
         self.posdict = tmpdict
 
     def nextposition(self):
         """Create iterator that return position in the order of chromosome"""
-        ##TODO 
-        yield None
+        posits = self.posdict.values()
+        posits.sort()
+        for pos in posits:
+            yield pos
+        
                 
 if __name__=='__main__':
     import doctest
