@@ -31,7 +31,7 @@ command.add_argument('-s', '--size', nargs="?", \
     type=int, default=15, \
     help='Maximun size of direct repeat region, default=15')
 command.add_argument('-p', '--percentage', nargs="?", \
-    type=float, default=0.8, choices=range(0,1),  \
+    type=float, default=0.8, \
     help='Minimun percentage of same base for create consensus, default=0.8')
 command.add_argument('bam', type=argparse.FileType("r"), \
     help='Alignment on BAM/SAM format')
@@ -43,6 +43,9 @@ if __name__=='__main__':
     """Performed job on execution script""" 
     args = command.parse_args()
     output = args.output
+    ##valided argument
+    if args.percentage < 0 or args.percentage > 1:
+        raise Exception("--percentage must be comprised between 0 to 1")
     ##Search clip read on bam by position with min quality
     positions = bamreader.parse(args.bam.name, args.quality)
 
@@ -55,12 +58,12 @@ if __name__=='__main__':
     couples = Couples()
     couples.groupeposition(positions, args.size)
     couples.filteroverlapcouple()
-    for couple in couples:
-        output.write(str(couple) + "\n")
         
     ##Create consensus and search inverted repeat sequence on it
     for couple in couples:
+        couple.createconsensus(args.percentage)
         couple.searchir()
+        output.write(str(couple) + "\n")
     
     ##return list of possible IS
     

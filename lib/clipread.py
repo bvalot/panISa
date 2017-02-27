@@ -40,6 +40,15 @@ class ClipRead():
             return self.ref_start
         else:
             return self.ref_end
+
+    def getclipseq(self):
+        """return clip part of the read, except for hard clip return None"""
+        if len(self.read_seq) == self.read_len:
+            return None
+        if self.isstartclip():
+            return self.read_seq[:self.read_start]
+        else:
+            return self.read_seq[self.read_end:]
         
     def __len__(self):
         return len(self.read_seq)

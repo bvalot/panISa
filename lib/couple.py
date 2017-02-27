@@ -14,22 +14,24 @@ class Couple():
         self.posend = posend
         self.consstart = None
         self.consend = None
-    
-    def createconsensus(self):
+        self.ir = None
+        
+    def createconsensus(self, percent):
         """Create consensus of clip read at both side"""
-        self.consstart = self.posstart.getconsensusstart()
-        self.consend = self.posend.getconsensusend()
+        self.consstart = self.posstart.getconsensus(percent, True)
+        self.consend = self.posend.getconsensus(percent, False)
 
     def searchir(self):
         if self.consstart is None or self.consend is None:
-            self.createconsensus()
+            raise Exception("You must create consensus before search ir")
         ##TODO search ir on consensus
 
     def rangeposition(self):
         return range(self.posstart.pos, self.posend.pos+1)
 
     def __str__(self):
-        return str(self.posstart) + "\t" + str(self.posend)
+        return str(self.posstart) + "\t" + str(self.posend) + "\t" + \
+            self.consend + "\t" + self.consstart
         
     def __len__(self):
         return self.posend.pos - self.posstart.pos

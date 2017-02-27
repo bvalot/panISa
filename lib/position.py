@@ -27,13 +27,39 @@ class Position():
         if len(self.clipend) < minread:
             self.clipend = []
             
-    def getconsensusstart(self):
-        ##TODO
-        return ""
+    def getconsensus(self, percent, start):
+        if start:
+            seqs = [clip.getclipseq() for clip in self.clipstart]
+        else:
+            seqs = [clip.getclipseq() for clip in self.clipend]
 
-    def getconsensusend(self):
-        ##TODO
-        return ""
+        while None in seqs:
+            seqs.remove(None)
+        if len(seqs) == 0:
+            return ""
+        cons = []
+        for i in range(0, max(map(len, seqs))):
+            allele = set()
+            values = []
+            for seq in seqs:
+                if len(seq) <= i:
+                    continue
+                if start:
+                    base = seq[-i-1]
+                else:
+                    base = seq[i]
+                allele.add(base)
+                values.append(base)
+            toadd = "N"
+            for base in allele:
+                if len(values) >= 5 and \
+                   float(values.count(base))/len(values) >= percent:
+                    toadd = base
+            cons.append(toadd)
+        if start:
+            return "".join(cons[::-1])
+        else:
+            return "".join(cons)
     
     def __len__(self):
         return max(len(self.clipstart), len(self.clipend))
