@@ -54,16 +54,16 @@ class Couples():
         for pos in positions.nextposition():
             if chrom is None: ##first position
                 chrom = pos.chrom
-            if chrom == pos.chrom: ##same chromosome, add position to list
-                if len(pos.clipstart) != 0:
-                    posstart.append(pos)
-                if len(pos.clipend) != 0:
-                    posend.append(pos)
-            else: ##change chromosome, create couple and reset
-                self.__createcouples(chrom,posstart, posend, size)
+            elif chrom != pos.chrom: ##change chromosome, create couple and reset
+                self.__createcouples(chrom, posstart, posend, size)
                 posstart = []
                 posend = []
                 chrom = pos.chrom
+            ##add position to list
+            if len(pos.clipstart) != 0:
+                posstart.append(pos)
+            if len(pos.clipend) != 0:
+                posend.append(pos)
         ##add last chromomose couple
         self.__createcouples(chrom, posstart, posend, size)
 
