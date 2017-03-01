@@ -6,32 +6,35 @@
 ##UMR 6249 Chrono-Environnement, Besançon, France
 ##Licence GPL
 
+import invertedrepeat as ir
+
 class Couple():
     """Class containing a start and end clip position with potential IS"""
     def __init__(self, chrom, posstart, posend):
         self.chrom = chrom
         self.posstart = posstart
         self.posend = posend
-        self.consstart = None
-        self.consend = None
+        self.cons5prime = None
+        self.cons3prime = None
+        self.dr = None
         self.ir = None
         
     def createconsensus(self, percent):
         """Create consensus of clip read at both side"""
-        self.consstart = self.posstart.getconsensus(percent, True)
-        self.consend = self.posend.getconsensus(percent, False)
+        self.cons3prime = self.posstart.getconsensus(percent, True)
+        self.cons5prime = self.posend.getconsensus(percent, False)
 
     def searchir(self):
-        if self.consstart is None or self.consend is None:
+        if self.cons5prime is None or self.cons3prime is None:
             raise Exception("You must create consensus before search ir")
-        ##TODO search ir on consensus
+        self.ir = ir.searchir(self.cons5prime, self.cons3prime)
 
     def rangeposition(self):
         return range(self.posstart.pos, self.posend.pos+1)
 
     def __str__(self):
         return str(self.posstart) + "\t" + str(self.posend) + "\t" + \
-            self.consend + "\t" + self.consstart
+            self.cons5prime + "\t" + self.cons3prime
         
     def __len__(self):
         return self.posend.pos - self.posstart.pos

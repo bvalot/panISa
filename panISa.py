@@ -22,7 +22,7 @@ command.add_argument('-o', '--output', nargs="?", \
     type=argparse.FileType("w"), default=sys.stdout, \
     help='Return list of IS insertion by alignment, default=stdout')
 command.add_argument('-q', '--quality', nargs="?", \
-    type=int, default=5, \
+    type=int, default=20, \
     help='Min alignment quality value to conserved a clip read, default=20')
 command.add_argument('-m', '--minimun', nargs="?", \
     type=int, default=5, \

@@ -52,7 +52,7 @@ class Position():
                 values.append(base)
             toadd = "N"
             for base in allele:
-                if len(values) >= 5 and \
+                if len(values) >= 2 and \
                    float(values.count(base))/len(values) >= percent:
                     toadd = base
             cons.append(toadd)
