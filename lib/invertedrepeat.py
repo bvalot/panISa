@@ -25,4 +25,5 @@ def searchir(prime5seq, prime3seq):
     """Searched ir from 5 to 3 prie consensus and return InvertRepeat class"""
     ##TODO by super Panisa
     ##Only store IR that is close to the 5 and 3 prime (<10bp)
+    ##test 
     return InvertRepeat()
