@@ -23,7 +23,8 @@ class Couple():
         """Create consensus of clip read at both side"""
         self.cons3prime = self.posstart.getconsensus(percent, True)
         self.cons5prime = self.posend.getconsensus(percent, False)
-
+        self.dr = self.__createdr(percent)
+        
     def searchir(self):
         if self.cons5prime is None or self.cons3prime is None:
             raise Exception("You must create consensus before search ir")
@@ -32,8 +33,41 @@ class Couple():
     def rangeposition(self):
         return range(self.posstart.pos, self.posend.pos+1)
 
+    def __createdr(self, percent):
+        size = self.posend.pos - self.posstart.pos
+        if size == 0:
+            return ""
+        seqs = []
+        for clip in self.posstart.clipstart:
+            s = clip.getdr(self.posstart.pos, self.posend.pos)
+            if len(s) == self.posend.pos - self.posstart.pos:
+                seqs.append(s)
+        for clip in self.posend.clipend:
+            s = clip.getdr(self.posstart.pos, self.posend.pos)
+            if len(s) == self.posend.pos - self.posstart.pos:
+                seqs.append(s)
+        if len(seqs) == 0 :
+            return "No sequence to build direct repeat"
+        if len(set(map(len,seqs))) != 1:
+            raise Exception("Direct repeat region can only compute on same length")
+        dr_tmp = []
+        for i in range(0,len(seqs[0])):
+            allele = set()
+            values = []
+            for seq in seqs:
+                base = seq[i]
+                allele.add(base)
+                values.append(base)
+            toadd = "N"
+            for base in allele:
+                if len(values) >= 2 and \
+                   float(values.count(base))/len(values) >= percent:
+                    toadd = base
+            dr_tmp.append(toadd)
+        return "".join(dr_tmp)
+    
     def __str__(self):
-        return str(self.posstart) + "\t" + str(self.posend) + "\t" + \
+        return str(self.posstart) + "\t" + str(self.posend) + "\t" + self.dr + "\t" + \
             self.cons5prime + "\t" + self.cons3prime
         
     def __len__(self):

@@ -13,11 +13,11 @@ class ClipRead():
     def __init__(self, alignedsegment):
         self.read_seq = alignedsegment.query_sequence
         self.read_name = alignedsegment.query_name
-        self.read_start = alignedsegment.query_alignment_start
-        self.read_end = alignedsegment.query_alignment_end
+        self.read_start = alignedsegment.query_alignment_start #0 left
+        self.read_end = alignedsegment.query_alignment_end #exclusive
         self.read_len = alignedsegment.query_alignment_length
-        self.ref_start = alignedsegment.reference_start
-        self.ref_end = alignedsegment.reference_end
+        self.ref_start = alignedsegment.reference_start #0 left 
+        self.ref_end = alignedsegment.reference_end # exclusive
         self.ref_len = alignedsegment.reference_length
         self.cigar = alignedsegment.cigarstring
         self.cigartuples = alignedsegment.cigartuples
@@ -33,6 +33,16 @@ class ClipRead():
             return False
         else:
             raise Exception("ClipRead must contain clip part at start or end")
+
+    def getdr(self, drstart, drend):
+        """Return the dr sequence"""
+        s = self.read_start + (drstart - self.ref_start) ##if < 0, incomplet dr
+        if s < 0:
+            raise Exception("Incomplet dr at start : \n" + str(self))        
+        e = self.read_end - (self.ref_end - drend)
+        if e > len(self.read_seq):
+            raise Exception("Incomplet dr at end : \n" + str(self))
+        return self.read_seq[s:e]
 
     def getclippos(self):
         """Return the position of the clip"""
@@ -54,8 +64,11 @@ class ClipRead():
         return len(self.read_seq)
 
     def __repr__(self):
-    	return self.read_seq
-    
+        return self.read_seq
+
+    def __str__(self):
+        return str(self.ref_start) + ": " + str(self.read_start) + self.read_seq + \
+            str(self.read_end) + " :" + str(self.ref_end)
 
 if __name__=='__main__':
     import doctest
