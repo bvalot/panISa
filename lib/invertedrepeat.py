@@ -18,17 +18,12 @@ class InvertRepeat():
         self.prime3_pos = prime3_pos ##position - len(seq) -1 beginning ir from clip start consensus (-1)
         self.prime3_seq = prime3_seq ##sequence ir from clip start consensus (reverse)
 
-    def __str__(self):
-        if self.prime5_seq is None:
-            return "No IR"
-        else :
-            return " ".join(self.prime5_pos, self.prime5_seq, self.prime3_pos, self.prime3_seq)
 
-    def __repr__(self):
-        if self.prime5_seq is None:
+    def __str__(self):
+        if self.prime5_pos is None:
             return "No IR"
         else :
-            return str(self.prime5_pos)+" "+self.prime5_seq+" "+str(self.prime3_pos)+" "+self.prime3_seq
+            return " ".join([str(self.prime5_pos), self.prime5_seq, str(self.prime3_pos), self.prime3_seq])
 
 
 
@@ -63,14 +58,12 @@ def readtempfile(tempread):
     return readdata
 
 
-
 def searchir(prime5seq, prime3seq):
     """Searched ir from 5 to 3 prie consensus and return InvertRepeat class"""
     ##TODO by super Panisa
     ##Only store IR that is close to the 5 and 3 prime (<10bp)
 
     rangeIRpos = 10
-    invertRepeat = []
     prime5_min = rangeIRpos
     prime3_max = -rangeIRpos
     prime5_seq_result = None
@@ -96,20 +89,20 @@ def searchir(prime5seq, prime3seq):
         for block in range(len(outseq_data)/4):
             line = 4*block
 
-            prime5_pos = int(outseq_data[0+line].split('_')[-2])
-            prime5_seq = outseq_data[1+line].splitlines()[0]
-            prime3_pos = int(outseq_data[2+line].split('_')[-1])-len_seq-1
-            prime3_seq = outseq_data[3+line].splitlines()[0]
+            prime5_pos_temp = int(outseq_data[0+line].split('_')[-2])
+            prime5_seq_temp = outseq_data[1+line].splitlines()[0]
+            prime3_pos_temp = int(outseq_data[2+line].split('_')[-1])-len_seq-1
+            prime3_seq_temp = outseq_data[3+line].splitlines()[0]
 
             ##Check IR in range
-            if prime5_pos <= rangeIRpos and prime3_pos >= -rangeIRpos :
+            if prime5_pos_temp <= rangeIRpos and prime3_pos_temp >= -rangeIRpos :
                 
                 ##Find the best IR
-                if (prime5_pos <= prime5_min) and (prime3_pos >= prime3_max):
-                    prime5_min = prime5_pos
-                    prime3_max = prime3_pos
-                    prime5_seq_result = prime5_seq
-                    prime3_seq_result = prime3_seq
+                if (prime5_pos_temp <= prime5_min) and (prime3_pos_temp >= prime3_max):
+                    prime5_min = prime5_pos_temp
+                    prime3_max = prime3_pos_temp
+                    prime5_seq_result = prime5_seq_temp
+                    prime3_seq_result = prime3_seq_temp
             else:
                 pass
     else:
@@ -120,7 +113,12 @@ def searchir(prime5seq, prime3seq):
     closetempfile(outtempfile)
     closetempfile(seqtempfile)
 
+    ##Return original values of prime5_pos and prime3_pos for "Not found IR" case
+    if prime5_seq_result is None:
+        prime5_min = None
+        prime3_max = None
+    
+    invertRepeat = InvertRepeat(prime5_min, prime5_seq_result, prime3_max, prime3_seq_result)
 
-    invertRepeat.append(InvertRepeat(prime5_min, prime5_seq_result, prime3_max, prime3_seq_result)) 
 
     return invertRepeat
