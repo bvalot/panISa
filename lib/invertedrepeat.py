@@ -84,7 +84,7 @@ def searchir(prime5seq, prime3seq):
 	seqtempfile = createtempfile()
 
 	##Call einverted from emboss to find IR
-	commandir = ['einverted -sequence '+ intempfile.name +' -gap 12 -threshold 15 -match 3 -mismatch -4 -outfile ' + outtempfile.name + ' -outseq '+ seqtempfile.name]
+	commandir = ['einverted -sequence '+ intempfile.name +' -gap 12 -threshold 15 -match 3 -mismatch -4 -outfile ' + outtempfile.name + ' -outseq '+ seqtempfile.name + ' -auto Y -warning N']
 	processir = subprocess.Popen(commandir, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 	processir.communicate()
 
