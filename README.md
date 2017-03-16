@@ -8,7 +8,7 @@ These reads overlapped on the direct repeat due to IS insertion.
 Finally, using a reconstruction of the beginning of both side of the IS, the software valided the IS by searching inverted repeat region
 
 ## Installation
-The programm used the python library **pysam** 
+The program used the python library **pysam** 
 
 You need to install the **emboss** package:
 http://emboss.sourceforge.net
