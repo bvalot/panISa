@@ -67,8 +67,13 @@ class Couple():
         return "".join(dr_tmp)
     
     def __str__(self):
-        return str(self.posstart) + "\t" + str(self.posend) + "\t" + self.dr + "\t" + \
-            self.cons5prime + "\t" + self.cons3prime
+        toreturn = str(self.posstart) + "\t" + str(self.posend) + "\t" + self.dr + "\t"
+        if self.ir is None:
+            toreturn += "No IR"
+        else:
+            toreturn += str(self.ir)
+        toreturn += "\t" + self.cons5prime + "\t" + self.cons3prime
+        return  toreturn
         
     def __len__(self):
         return self.posend.pos - self.posstart.pos
