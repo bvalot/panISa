@@ -14,6 +14,7 @@ import os
 import tempfile
 from lib import bamreader
 from lib.couple  import Couples
+from lib.writer import writeoutput
 
 desc = "Search integrative element (IS) insertion on a genome using BAM alignment"
 command = argparse.ArgumentParser(prog='panISa.py', \
@@ -60,10 +61,10 @@ if __name__=='__main__':
     couples.filteroverlapcouple()
         
     ##Create consensus and search inverted repeat sequence on it
-    for couple in couples:
+    for index, couple in enumerate(couples):
         couple.createconsensus(args.percentage)
         couple.searchir()
-        output.write(str(couple) + "\n")
+        output.write(writeoutput(index,couple))
     
     ##return list of possible IS
     
