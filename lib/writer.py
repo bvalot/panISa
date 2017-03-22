@@ -6,34 +6,19 @@
 ##UMR 6249 Chrono-Environnement, Besançon, France
 ##Licence GPL
 
-def defineIR(irdata):
-    if irdata is None:
-        ir = "No IR"
-    else:
-        ir = irdata
-    return str(ir)
+def writetabular(output,couples):
+    output.write("\t".join(["Chromosome","Left position", "Clip read left", "Direct repeats","Right position", "Clip read rigth", \
+        "Inverted repeats","Left sequences","Right sequences"]) + "\n")
+    for c in couples:
+        towrite = []
+        towrite.extend([c.chrom, str(c.posend.pos), str(len(c.posend.clipend)), c.dr, str(c.posstart.pos + 1), str(len(c.posstart.clipstart))])
+        if c.ir is None:
+            towrite.append("No IR")
+        else:
+            towrite.append(c.ir)
+        towrite.extend([c.cons5prime, c.cons3prime])
 
-def isfoundDR(rawdata):
-    if len(rawdata.dr) > 0:##found DR
-        templatedata = "\t".join([rawdata.chrom, str(rawdata.posstart.pos+1), rawdata.dr, str(rawdata.posend.pos),\
-            defineIR(rawdata.ir), rawdata.cons5prime, rawdata.cons3prime])+"\n"
-    else:
-        templatedata = "\t".join([rawdata.chrom, str(rawdata.posend.pos), rawdata.dr, str(rawdata.posstart.pos+1),\
-            defineIR(rawdata.ir), rawdata.cons5prime, rawdata.cons3prime])+"\n"
-    return templatedata
-
-def writeoutput(index,data):
-    header = "\t".join(["Chromosome","Start","Direct repeats","End","Inverted repeats","Left sequences","Right sequences"])\
-    +"\n"+"-"*103
-    outdata = isfoundDR(data)
-
-    #[check index for writing header]
-    if index == 0:
-        outdata = "\n".join([header,outdata])
-    else:
-        outdata = outdata
-    return outdata
-
+        output.write("\t".join(towrite) + "\n")
 
 if __name__=='__main__':
     import doctest
