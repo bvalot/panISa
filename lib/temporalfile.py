@@ -31,11 +31,15 @@ def writefile(writedata):
     return temp
 
 
-def readfile(tempread):
+def readfile(tempread,separateBy):
     readdata = []
+    sep_line = ["\n","line"]
     try:
         tempread.seek(0)
-        readdata = tempread.readlines()
+        if separateBy in sep_line:
+            readdata = tempread.readlines()
+        else:
+            readdata = tempread.read().split(separateBy)[1:]
     except Exception:
         exe = traceback.format_exc()
         print exe

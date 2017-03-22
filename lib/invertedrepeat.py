@@ -39,39 +39,28 @@ class InvertRepeat():
             raise Exception("Implement differentiation with similar IR pos")
         
 
-    def extractIRinfo(self, len_consensus, irdata):
-        ##Extract IR information
-
-        rangeIRpos = 15
-        len_bestir = rangeIRpos*2
-
-        if len(irdata) > 3:
-            for block in range(len(irdata)/4):#a block refers a result set that contains 4 lines
-                line = 4*block
-
-                prime5_pos_temp = int(irdata[0+line].split('_')[-2])
-                prime5_seq_temp = irdata[1+line].splitlines()[0]
-                prime3_pos_temp = int(irdata[2+line].split('_')[-1])-len_consensus-1
-                prime3_seq_temp = irdata[3+line].splitlines()[0]
-
-                ##Check IR in range
-                if prime5_pos_temp <= rangeIRpos and prime3_pos_temp >= -rangeIRpos :
-                    
-                    ##Find the best IR
-                    if prime5_pos_temp-prime3_pos_temp < len_bestir:
-                        len_bestir = prime5_pos_temp-prime3_pos_temp
-                        self.prime5_pos = prime5_pos_temp
-                        self.prime3_pos = prime3_pos_temp
-                        self.prime5_seq = prime5_seq_temp
-                        self.prime3_seq = prime3_seq_temp
-
-
-
 def searchir(prime5seq, prime3seq):
     """Searched ir from 5 to 3 prime consensus and return InvertRepeat class or None"""
     range_ir_pos = 15
 
-    ##Prepare input for einverted
+    outseq_data = __performedirsearchwitheinverted(prime5seq, prime3seq)
+    len_cons = __lenofconsensus(prime5seq, prime3seq)
+
+    for invert in __getnextirfromeinverted(outseq_data,len_cons):
+        if invert is None:
+            return None
+        invertRepeat = None
+
+        ##Check IR in range and choice best one
+        if invert.isinrange(range_ir_pos):
+            if invertRepeat is None or invert.isbestis(invertRepeat):
+                invertRepeat = str(invert)
+                
+    return invertRepeat
+
+
+def __performedirsearchwitheinverted(prime5seq, prime3seq):
+    """Take 5 and 3 prime consensus to search invert repeat zith einverted"""
     intempfile = temp.writefile("\n".join([">",prime5seq+prime3seq]))
 
     outtempfile = temp.createfile()
@@ -84,32 +73,34 @@ def searchir(prime5seq, prime3seq):
     processir.communicate()
 
     ##Read data from outseq of einverted
-    outseq_data = temp.readfile(seqtempfile)
+    outseq_data = temp.readfile(seqtempfile,">")
+
 
     ##Close all temp files
     temp.closefile(intempfile)
     temp.closefile(outtempfile)
-    temp.closefile(seqtempfile)
+    temp.closefile(seqtempfile)    
 
-    if len(outseq_data) < 3: ##No IR
-        return None
+    return outseq_data
+
+
+def __getnextirfromeinverted(outseq_data,len_cons):
+    """read the fasta export of einverted to return invertrepeat object"""
+    if len(outseq_data) < 1: ##No IR
+        yield None
     
-    invertRepeat = None
-    for block in range(len(outseq_data)/4):#a block refers a result set that contains 4 lines
-        line = 4*block
+    for block in range(len(outseq_data)/2):#a block refers a result set that contains 2 lists
+        line = 2*block
         ##create IR
-        prime5_pos_t = int(outseq_data[0+line].split('_')[-2])
-        prime5_seq_t = outseq_data[1+line].splitlines()[0]
-        prime3_pos_t = int(outseq_data[2+line].split('_')[-1])-len(prime5seq+prime3seq)-1
-        prime3_seq_t = outseq_data[3+line].splitlines()[0]
+        prime5_pos_t = int(outseq_data[0+line].split("\n")[0].split('_')[-2])
+        prime5_seq_t = "".join(outseq_data[0+line].split("\n")[1:])
+        prime3_pos_t = int(outseq_data[1+line].split("\n")[0].split('_')[-1])-len_cons-1
+        prime3_seq_t = "".join(outseq_data[1+line].split("\n")[1:])
         invert = InvertRepeat(prime5_pos_t, prime5_seq_t, prime3_pos_t, prime3_seq_t)
+        yield invert
 
-        ##Check IR in range and choice best one
-        if invert.isinrange(range_ir_pos):
-            if invertRepeat is None or invert.isbestis(invertRepeat):
-                invertRepeat = invert
-                
-    return invertRepeat
+def __lenofconsensus(prime5seq, prime3seq):
+    return len(prime5seq+prime3seq)
 
 if __name__=='__main__':
     import doctest
