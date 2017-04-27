@@ -1,11 +1,12 @@
-from os import listdir, system
+import random
 import shutil, os
+from os import listdir, system
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-import random
+from util import managefiledir as man
 
-class CreateSequence():
+class SimInsertSeq():
 	def __init__(self,seqData,len_seqData):
 		self.seqData = seqData
 		self.len_seqData = len_seqData
@@ -86,7 +87,6 @@ class CreateSequence():
 
 			self.__saveISinfo(i,outISinfo_dir)
 
-			# print(str(i)+": "+str(self.ISname)+"\tlen_IS: "+str(len(self.ISseq))+ '\tlen_DR: '+str(self.randomLen_DR)+'\tISPos: '+str(self.randomPos[i]))
 		##[add termination after inserion]
 		newSeq += self.seqData.seq[nextstart:]
 
@@ -109,17 +109,15 @@ class CreateSequence():
 		ISfile.close()
 
 
-def readSeqData(fasta_dir):
-	for dataFile in listdir(fasta_dir):
-		
-		if dataFile.split(".")[1] == "gbk":
-			parse_type = "genbank"
-		elif dataFile.split(".")[1] in ".fasta":
-			parse_type = "fasta"
+def readSeqData(fastaFile):
+	if fastaFile.split(".")[1] == "gbk":
+		parse_type = "genbank"
+	elif fastaFile.split(".")[1] in ".fasta":
+		parse_type = "fasta"
 
-		for read_seqData in SeqIO.parse(fasta_dir+dataFile, parse_type):
-			readData = CreateSequence(read_seqData,len(read_seqData.seq))
-			yield readData
+	for read_seqData in SeqIO.parse(fastaFile, parse_type):
+		readData = SimInsertSeq(read_seqData,len(read_seqData.seq))
+		return readData
 
 def writeSeqRecord(outSeq_dir, out_record_seq):
 	fileName = outSeq_dir+str(out_record_seq.id).split(".")[0]+"_simIS.fasta"
@@ -129,19 +127,17 @@ def writeSeqRecord(outSeq_dir, out_record_seq):
 	return fileName
 
 
-def simSequences(ISinfo_dir,fasta_dir,outISseq_dir,outISinfo_dir):
-	system('rm -rf %s*'%outISseq_dir)
-	system('mkdir %s'%outISseq_dir)
-	system('rm -rf %s*'%outISinfo_dir)
-	system('mkdir %s'%outISinfo_dir)
+def getSimIS(ISinfo_dir,fastaFile,outISseq_dir,outISinfo_dir):
+	man.makedir(outISseq_dir)
+	man.makedir(outISinfo_dir)
 
-	for outSeq in list(readSeqData(fasta_dir)):
-		out_record_seq = outSeq.newSeqRecord(ISinfo_dir,outISinfo_dir)
-		out_seq_file = writeSeqRecord(outISseq_dir,out_record_seq)
-		return out_seq_file
+	outSeq = readSeqData(fastaFile)
+	out_record_seq = outSeq.newSeqRecord(ISinfo_dir,outISinfo_dir)
+	out_seq_file = writeSeqRecord(outISseq_dir,out_record_seq)
+	return out_seq_file
 
 # # ===================using functions==============================
-# simSequences('testGen/IS_info/','testGen/fasta/','testGen/seq/','testGen/IScheckList/')
+# getSimIS('testGen/IS_info/','testGen/fasta/','testGen/seq/','testGen/IScheckList/')
 # # ===================meaning of parameters========================
 ##ISinfo_dir	: directory contains positions(.gff) fileste
 ##fasta_dir		: directory contains sequence files(genbank/fasta)
