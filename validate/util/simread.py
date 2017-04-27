@@ -1,15 +1,10 @@
-# from os import listdir, system
-# import shutil, os
 from sys import argv
 import subprocess
 
 
-#set working directory
-# os.chdir('..')
-
-def simread(refFile, inFastaFile, len_read, cov):
+def simread(refFile, inFastaFile, len_read, cov, out_dir):
 	##[make reads]
-	cmdsim = ['dwgsim -1 %s -2 %s -C %s %s sim'%(len_read,len_read,cov,inFastaFile)]
+	cmdsim = ['dwgsim -1 %s -2 %s -C %s %s %ssim'%(len_read,len_read,cov,inFastaFile,out_dir)]
 	subprocess.call(cmdsim, shell=True)
 
 	##[make index]
@@ -17,8 +12,8 @@ def simread(refFile, inFastaFile, len_read, cov):
 	subprocess.call(cmdindex, shell=True)
 
 	##[make align]
-	read1 = 'sim.bwa.read1.fastq'
-	read2 = 'sim.bwa.read2.fastq'
+	read1 = out_dir+'sim.bwa.read1.fastq'
+	read2 = out_dir+'sim.bwa.read2.fastq'
 	alignFile = inFastaFile.split('.fasta')[0]+'_aln.sam'
 
 	##[alignments with maximal exact matches]
