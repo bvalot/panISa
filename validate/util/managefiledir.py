@@ -7,7 +7,7 @@ def makedir(newDir):
         os.makedirs(newDir)
 
 def removedir(dirName):
-	shutil.rmtree(dirName,ignore_errors=True)
+    shutil.rmtree(dirName,ignore_errors=True)
 
 def rmexceptfile(dirName,fileName):
     for f in listdir(dirName):
@@ -15,4 +15,4 @@ def rmexceptfile(dirName,fileName):
             os.remove(dirName+f)
 
 def copyfile(oldDir,newDir):
-	shutil.copyfile(oldDir,newDir)
+    shutil.copyfile(oldDir,newDir)
