@@ -31,6 +31,8 @@ command.add_argument('-i', '--info_dir', action='store', default='output/info/',
     help='Return report of information which insert in simulated complete genome, default=info')
 command.add_argument('-r', '--report_dir', action='store', default='output/report/',\
     help='Return comparation report between panISa and real IS, default=report')
+command.add_argument('-n', '--number_IS', nargs="?", \
+    type=int, default=30, help='Number of ISs which were randomly added in simulation, default=30')
 command.add_argument('-c', '--coverage', nargs="?", \
     type=int, default=60, help='Mean coverage for simulation read, default=60')
 command.add_argument('-l', '--length', nargs="?", \
@@ -56,7 +58,7 @@ if __name__=='__main__':
 
     for sim in listdir(args.fasta_dir):
         ##Simutale the complete genome sequence with ISs
-        simfasta_file = siminsertseq.getSimIS(args.isinfo_dir,args.fasta_dir+sim,args.seq_dir,args.info_dir)
+        simfasta_file = siminsertseq.getSimIS(args.isinfo_dir,args.fasta_dir+sim,args.seq_dir,args.info_dir,args.number_IS)
 
         ##Move ref file and simulated complete genome as the same place 
         man.copyfile(args.fasta_dir+sim,read_dir+sim)
@@ -76,6 +78,6 @@ if __name__=='__main__':
         ##Create comparation report
         name = sim.split(".fasta")[0]
         report = GenReport()
-        report.processReport(args.info_dir+name,temp_dir+name,2,args.report_dir+name)
+        report.processReport(args.info_dir+name,temp_dir+name,args.report_dir+name)
 
 
