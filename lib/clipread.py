@@ -35,13 +35,13 @@ class ClipRead():
             raise Exception("ClipRead must contain clip part at start or end")
 
     def getdr(self, drstart, drend):
-        """Return the dr sequence"""
+        """Return the dr sequence if complete or return None"""
         s = self.read_start + (drstart - self.ref_start) ##if < 0, incomplet dr
         if s < 0:
-            raise Exception("Incomplet dr at start : \n" + str(self))        
+            return None       
         e = self.read_end - (self.ref_end - drend)
         if e > len(self.read_seq):
-            raise Exception("Incomplet dr at end : \n" + str(self))
+            return None
         return self.read_seq[s:e]
 
     def getclippos(self):
