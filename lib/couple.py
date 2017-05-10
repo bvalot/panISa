@@ -40,11 +40,11 @@ class Couple():
         seqs = []
         for clip in self.posstart.clipstart:
             s = clip.getdr(self.posstart.pos, self.posend.pos)
-            if len(s) == self.posend.pos - self.posstart.pos:
+            if s is not None and len(s) == self.posend.pos - self.posstart.pos:
                 seqs.append(s)
         for clip in self.posend.clipend:
             s = clip.getdr(self.posstart.pos, self.posend.pos)
-            if len(s) == self.posend.pos - self.posstart.pos:
+            if s is not None and len(s) == self.posend.pos - self.posstart.pos:
                 seqs.append(s)
         if len(seqs) == 0 :
             return "No sequence to build direct repeat"
