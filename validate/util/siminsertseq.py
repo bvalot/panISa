@@ -7,10 +7,10 @@ from Bio.SeqRecord import SeqRecord
 from util import managefiledir as man
 
 class SimInsertSeq():
-    def __init__(self,seqData,len_seqData,amount_IS):
+    def __init__(self,seqData,len_seqData,amountIS):
         self.seqData = seqData
         self.len_seqData = len_seqData
-        self.amount_IS = amount_IS
+        self.amountIS = amountIS
         self.totalISinfo = None
         self.genome = None
         self.ISname = None
@@ -39,7 +39,7 @@ class SimInsertSeq():
         cur_pos_ok = None
         distance = int(self.len_seqData)/1000
 
-        while len(posList) < self.amount_IS:
+        while len(posList) < self.amountIS:
             cur_pos = random.randint(distance,self.len_seqData-distance)
             if len(posList) == 0:
                 posList.append(cur_pos)
@@ -47,8 +47,8 @@ class SimInsertSeq():
                 posList.append(cur_pos)
         self.randomPos = sorted(posList)
 
-    def __getISinfo(self,ISinfo_dir,i):
-        openFile_info = open(ISinfo_dir+str(self.seqData.id).split(".")[0], "r")
+    def __getISinfo(self,ISinfo_file,i):
+        openFile_info = open(ISinfo_file, "r")
         readFile_info = openFile_info.readlines()[1:]
         openFile_info.close()
 
@@ -66,18 +66,18 @@ class SimInsertSeq():
             ##[randomly assign values]
             self.randomLen_DR = self.__randomLen_DR()
 
-    def newSeqRecord(self,ISinfo_dir,outISinfo_dir):
+    def newSeqRecord(self,ISinfo_file,outISinfo_file):
         newSeq = ''
         nextstart = None
         ##[generate random position once at first time]
-        self.__getISinfo(ISinfo_dir,0)
+        self.__getISinfo(ISinfo_file,0)
         self.__randomPos()
 
-        for i in range(self.amount_IS):
+        for i in range(self.amountIS):
             ##[randomly select IS from ISinfo readfile]
             randIS = random.randint(0,self.totalISinfo-1)
 
-            self.__getISinfo(ISinfo_dir,randIS)
+            self.__getISinfo(ISinfo_file,randIS)
 
             if len(newSeq) == 0:##[case 1st time of insertion]
                 newSeq = self.seqData.seq[:self.randomPos[i]+self.randomLen_DR]+self.ISseq
@@ -86,7 +86,7 @@ class SimInsertSeq():
                 newSeq += self.seqData.seq[nextstart:self.randomPos[i]+self.randomLen_DR]+self.ISseq
                 nextstart = self.randomPos[i]
 
-            self.__saveISinfo(i,outISinfo_dir)
+            self.__saveISinfo(i,outISinfo_file)
 
         ##[add termination after inserion]
         newSeq += self.seqData.seq[nextstart:]
@@ -96,8 +96,8 @@ class SimInsertSeq():
         # print("Genome: "+self.genome+" Total: "+str(len(newSeq))+" original: "+str(len(self.seqData.seq)))
         return out_record_seq
 
-    def __saveISinfo(self,i,outISinfo_dir):
-        ISfile = open(outISinfo_dir+self.genome.split(".")[0],"a")
+    def __saveISinfo(self,i,outISinfo_file):
+        ISfile = open(outISinfo_file,"a")#+self.genome.split(".")[0],"a")
         header = ["Genome","IS Name","IS Family","IS Group","DR-Length","Random DR-Length",\
         "DR-Seq","IS-Length","IS Position","IR"]
         if i == 0:
@@ -110,38 +110,21 @@ class SimInsertSeq():
         ISfile.close()
 
 
-def readSeqData(fastaFile,amount_IS):
-    if fastaFile.split(".")[1] == "gbk":
-        parse_type = "genbank"
-    elif fastaFile.split(".")[1] in ".fasta":
-        parse_type = "fasta"
-
-    for read_seqData in SeqIO.parse(fastaFile,parse_type):
-        readData = SimInsertSeq(read_seqData,len(read_seqData.seq),amount_IS)
+def readSeqData(fastaFile,amountIS):
+    for read_seqData in SeqIO.parse(fastaFile,"fasta"):
+        readData = SimInsertSeq(read_seqData,len(read_seqData.seq),amountIS)
         return readData
 
-def writeSeqRecord(outSeq_dir, out_record_seq):
-    fileName = outSeq_dir+str(out_record_seq.id).split(".")[0]+"_simIS.fasta"
+def writeSeqRecord(outsimseq_dir, out_record_seq):
+    fileName = outsimseq_dir+"simIS.fasta"
     write_file = open(fileName,"w")
     SeqIO.write(out_record_seq, write_file, "fasta")
     write_file.close()
     return fileName
 
 
-def getSimIS(ISinfo_dir,fastaFile,outISseq_dir,outISinfo_dir,amount_IS):
-    man.makedir(outISseq_dir)
-    man.makedir(outISinfo_dir)
-
-    outSeq = readSeqData(fastaFile,amount_IS)
-    out_record_seq = outSeq.newSeqRecord(ISinfo_dir,outISinfo_dir)
-    out_seq_file = writeSeqRecord(outISseq_dir,out_record_seq)
+def getSimIS(ISinfo_file,fastaFile,outsimseq_dir,outISinfo_file,amountIS):
+    outSeq = readSeqData(fastaFile,amountIS)
+    out_record_seq = outSeq.newSeqRecord(ISinfo_file,outISinfo_file)
+    out_seq_file = writeSeqRecord(outsimseq_dir,out_record_seq)
     return out_seq_file
-
-# # ===================using functions==============================
-# getSimIS('testGen/IS_info/','testGen/fasta/','testGen/seq/','testGen/IScheckList/')
-# # ===================meaning of parameters========================
-##ISinfo_dir    : directory contains positions(.gff) fileste
-##fasta_dir     : directory contains sequence files(genbank/fasta)
-##file_extension: file extension of sequence files(.gbk/.fasta)
-##outISseq_dir  : directory contains sequence output
-##outISinfo_dir     : directory contains IS-information output
