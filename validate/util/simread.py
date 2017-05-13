@@ -28,8 +28,3 @@ def simread(refFile, inFastaFile, len_read, cov, out_dir):
     ##[make sort]
     cmdsort = ['samtools sort %s %s'%(bamFile, inFastaFile.split('.fasta')[0])]
     subprocess.call(cmdsort, shell=True)
-
-
-# ===================using functions=====================
-# simread(argv[1],argv[2],argv[3])
-# simread('PA_PAO1.fasta','NC_002516_simIS.fasta', 150, 50) 
