@@ -52,7 +52,6 @@ if __name__=='__main__':
     simisinfo_resultfile = tempfile.NamedTemporaryFile()
     panisa_resultfile = tempfile.NamedTemporaryFile()
 
-
     ##[Simulate the complete genome sequence with ISs]
     simfasta_file = siminsertseq.getSimIS(args.isinfo.name,args.fasta.name, \
         temp_dir,simisinfo_resultfile.name,args.number_IS)
