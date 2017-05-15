@@ -45,10 +45,10 @@ command.add_argument('-v', '--version', action='version', \
 if __name__=='__main__':
     """Performed job on execution script""" 
     args = command.parse_args()
-    temp_dir = "temp/"
+    
 
     ##[Prepare temp files and temp directory for all outputs]
-    man.makedir(temp_dir) ##[Prepare directory for simulated read output]
+    temp_dir = tempfile.mkdtemp()+"/" ##[Prepare directory for simulated read output]
     simisinfo_resultfile = tempfile.NamedTemporaryFile()
     panisa_resultfile = tempfile.NamedTemporaryFile()
 
