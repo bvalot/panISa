@@ -38,6 +38,8 @@ command.add_argument('-s', '--size', nargs="?", type=int, default=15, \
     help='Maximun size of direct repeat region, default=15')
 command.add_argument('-q', '--quality', nargs="?", type=int, default=20, \
     help='Min alignment quality value to conserved a clip read, default=20')
+command.add_argument('-t', '--thread', nargs="?", type=int, default=1, \
+    help='Number of thread to performed bwa mapping, default=1')
 command.add_argument('-v', '--version', action='version', \
     version='%(prog)s 0.1.0')
 
@@ -60,7 +62,7 @@ if __name__=='__main__':
     man.copyfile(args.fasta.name,ref_file)
 
     ##[Simulate read from simulated complete genome]
-    simread.simread(ref_file,simfasta_file,args.length,args.coverage,temp_dir)
+    simread.simread(ref_file,simfasta_file,args.length,args.coverage,temp_dir,args.thread)
 
     ##[Remove intermediate files of read simulation process]
     readfile = simfasta_file.split("/")[-1].split(".fasta")[0]+".bam"
