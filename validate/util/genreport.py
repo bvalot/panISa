@@ -5,6 +5,7 @@ class GenReport():
     def __init__(self):
         self.simData = []
         self.panData = []
+        self.acc_no = None
 
 
     def __readData(self,simulatedFile,panisaoutFile):
@@ -40,6 +41,7 @@ class GenReport():
         elif len(str(panData_read[0]).split("\t")) == 9:
             panData_read = panData_read[1:]
             for pan in panData_read:
+                self.acc_no = pan.split("\t")[0]
                 isposL = int(pan.split("\t")[1])
                 clipL = int(pan.split("\t")[2])
                 dr = int(len(pan.split("\t")[3])) \
@@ -73,17 +75,18 @@ class GenReport():
                 ##[case match; ISs exist both simulation and panISa]
                 if s["ispos"] in range_panpos:
                     case = "both"
-                    assignData.append([case,s["isname"],str(s["ispos"]),str(s["dr"]),s["ir"],\
-                        str(p["isposL"]),str(p["clipL"]),str(p["dr"]),str(p["isposR"]),\
-                        str(p["clipR"]),p["seqL"],p["seqR"],p["ir"],self.simData.index(s)])
+                    assignData.append([case,self.acc_no,s["isname"],str(s["ispos"]),\
+                        str(s["dr"]),s["ir"],str(p["isposL"]),str(p["clipL"]),\
+                        str(p["dr"]),str(p["isposR"]),str(p["clipR"]),p["seqL"],\
+                        p["seqR"],p["ir"],self.simData.index(s)])
                     match_panIndex.append(self.panData.index(p))
                     pseudo_index.append((self.simData.index(s),self.panData.index(p)))
                     break
             ##[case simulation; ISs exist only simulation]
             else:
                 case = "simulation"
-                assignData.append([case,s["isname"],str(s["ispos"]),str(s["dr"]),s["ir"],\
-                    "","","","","","","","",self.simData.index(s)])
+                assignData.append([case,self.acc_no,s["isname"],str(s["ispos"]),\
+                    str(s["dr"]),s["ir"],"","","","","","","","",self.simData.index(s)])
 
         ##[case panISa; ISs exist only panISa]
         total_panData = set(range(0,len(self.panData)))
@@ -92,7 +95,7 @@ class GenReport():
             case = "panISa"
             ##[get new index for sorting]
             mmidx = self.__makeIndex(pseudo_index,mm)
-            assignData.append([case,"","","","",\
+            assignData.append([case,self.acc_no,"","","","",\
                 str(self.panData[mm]["isposL"]),str(self.panData[mm]["clipL"]),\
                 str(self.panData[mm]["dr"]),str(self.panData[mm]["isposR"]),\
                 str(self.panData[mm]["clipR"]),self.panData[mm]["seqL"],\
@@ -133,9 +136,9 @@ class GenReport():
 
 
     def __writeData(self,outplace,reportdata):
-        outplace.write("\t".join(["Case","IS Name","Sim.position","DR Length","IR",\
-            "panISa L-position","L-clip","DR Length","panISa R-position","R-clip",\
-            "L-Seq.","R-Seq.","IR"]) + "\n")
+        outplace.write("\t".join(["Case","Accession No.","IS Name","Sim.position",\
+            "DR Length","IR","panISa L-position","L-clip","DR Length","panISa R-position",\
+            "R-clip","L-Seq.","R-Seq.","IR"]) + "\n")
 
         for line in reportdata:
             outplace.write("\t".join(line)+"\n")
