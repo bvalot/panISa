@@ -18,7 +18,7 @@ In debian, type:
 > sudo apt-get install emboss 
 
 ## Command and Options
-<pre><code>python panISa.py [options] bam</code></pre>
+<pre>python panISa.py [options] bam</pre>
 
 ### Options
 <pre>-h           show this help message and exit<br />
@@ -30,7 +30,7 @@ In debian, type:
 -v           show program's version number and exit<br /></pre>
 
 ## Recommandation
-panISa work well with the alignment from **bwa** software.
+panISa works well with the alignment from **bwa** software.
 
 
 ## Development
