@@ -14,7 +14,7 @@ You need to install the **emboss** package:
 http://emboss.sourceforge.net
 
 In debian, type:
-> sudo apt-get install python-pysam emboss<br />
+> sudo apt-get install python-pysam<br />
 > sudo apt-get install emboss 
 
 ## Command and Options
