@@ -21,8 +21,8 @@ In debian, type:
 python panISa.py [options] bam
 
 ### Options
-####-h	 									show this help message and exit
- *-o [OUTPUT]			str		Return list of IS insertion by alignment [stdout]
+#### -h	 									show this help message and exit
+#### -o [OUTPUT]			str		Return list of IS insertion by alignment [stdout]
  *-q [QUALITY]		int		Min alignment quality value to conserved a clip read [20]
  *-m [MINIMUN]		int		Min number of clip read to look at IS on a position [5]
  *-s [SIZE]				int		Maximun size of direct repeat region [15]
