@@ -20,14 +20,14 @@ In debian, type:
 ## Command and Options
 python panISa.py [options] bam
 
-Options
-  -h	 									show this help message and exit
-  -o [OUTPUT]			str		Return list of IS insertion by alignment [stdout]
-  -q [QUALITY]		int		Min alignment quality value to conserved a clip read [20]
-  -m [MINIMUN]		int		Min number of clip read to look at IS on a position [5]
-  -s [SIZE]				int		Maximun size of direct repeat region [15]
-  -p [PERCENTAGE]	float Minimun percentage of same base for create consensus [0.8]
-  -v										show program's version number and exit
+### Options
+####-h	 									show this help message and exit
+ *-o [OUTPUT]			str		Return list of IS insertion by alignment [stdout]
+ *-q [QUALITY]		int		Min alignment quality value to conserved a clip read [20]
+ *-m [MINIMUN]		int		Min number of clip read to look at IS on a position [5]
+ *-s [SIZE]				int		Maximun size of direct repeat region [15]
+ *-p [PERCENTAGE]	float Minimun percentage of same base for create consensus [0.8]
+ *-v										show program's version number and exit
 
 ## Recommandation
 panISa work well with the alignment from **bwa** software.
