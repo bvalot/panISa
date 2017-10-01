@@ -26,7 +26,7 @@ In debian, type:
 -q [<i>int</i>]     Minimum alignment quality value to conserved a clip read [20]<br />
 -m [<i>int</i>]     Minimum number of clip read to look at IS on a position [5]<br />
 -s [<i>int</i>]     Maximum size of direct repeat region [15]<br />
--p [<i>float</i>]   Minimum percentage of same base for create consensus [0.8]<br />
+-p [<i>float</i>]   Minimum percentage of same base to create consensus [0.8]<br />
 -v           show program's version number and exit<br /></pre>
 
 ## Recommandation
