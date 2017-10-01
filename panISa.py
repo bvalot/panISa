@@ -30,10 +30,10 @@ command.add_argument('-m', '--minimun', nargs="?", \
     help='Min number of clip read to look at IS on a position, default=5')
 command.add_argument('-s', '--size', nargs="?", \
     type=int, default=15, \
-    help='Maximun size of direct repeat region, default=15')
+    help='Maximum size of direct repeat region, default=15')
 command.add_argument('-p', '--percentage', nargs="?", \
     type=float, default=0.8, \
-    help='Minimun percentage of same base for create consensus, default=0.8')
+    help='Minimum percentage of same base to create consensus, default=0.8')
 command.add_argument('bam', type=argparse.FileType("r"), \
     help='Alignment on BAM/SAM format')
 command.add_argument('-v', '--version', action='version', \
