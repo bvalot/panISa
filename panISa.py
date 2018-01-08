@@ -29,8 +29,8 @@ command.add_argument('-m', '--minimun', nargs="?", \
     type=int, default=5, \
     help='Min number of clip read to look at IS on a position, default=5')
 command.add_argument('-s', '--size', nargs="?", \
-    type=int, default=15, \
-    help='Maximun size of direct repeat region, default=15')
+    type=int, default=60, \
+    help='Maximun size of direct repeat region, default=60')
 command.add_argument('-p', '--percentage', nargs="?", \
     type=float, default=0.8, \
     help='Minimun percentage of same base for create consensus, default=0.8')
