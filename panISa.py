@@ -33,7 +33,7 @@ command.add_argument('-s', '--size', nargs="?", \
     help='Maximun size of direct repeat region, default=60')
 command.add_argument('-p', '--percentage', nargs="?", \
     type=float, default=0.8, \
-    help='Minimun percentage of same base for create consensus, default=0.8')
+    help='Minimum percentage of same base to create consensus, default=0.8')
 command.add_argument('bam', type=argparse.FileType("r"), \
     help='Alignment on BAM/SAM format')
 command.add_argument('-v', '--version', action='version', \
