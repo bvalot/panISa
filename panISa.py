@@ -27,7 +27,7 @@ command.add_argument('-q', '--quality', nargs="?", \
     help='Min alignment quality value to conserved a clip read, default=20')
 command.add_argument('-m', '--minimun', nargs="?", \
     type=int, default=5, \
-    help='Min number of clip read to look at IS on a position, default=5')
+    help='Min number of clipped read to look at IS on a position, default=5')
 command.add_argument('-s', '--size', nargs="?", \
     type=int, default=60, \
     help='Maximun size of direct repeat region, default=60pb')
