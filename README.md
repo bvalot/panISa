@@ -36,7 +36,7 @@ Verify the installation using the test file
 -v           show program's version number and exit<br /></pre>
 
 ## Output
-PanISa return result in tabular format with the followinng columns:
+PanISa returns result in tabular format with the following columns:
 * Chromosome name: location of the potential IS
 * Left position: position of the first base of the direct repeat
 * Clip reads left: number of clip reads (left position)
