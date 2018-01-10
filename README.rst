@@ -43,6 +43,14 @@ Verify the installation using the test file
 
    <pre>python panISa.py test/test.bam</pre>
 
+Alternativly, you can install from 'PyPI repository
+<https://pypi.python.org/pypi>'_
+
+.. raw:: html
+
+   <pre>pip install panisa</pre>
+
+   
 Command and Options
 -------------------
 
