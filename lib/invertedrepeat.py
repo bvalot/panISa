@@ -22,15 +22,16 @@ class InvertRepeat():
         self.prime3_seq = prime3_seq
 
     def __str__(self):
-        return " ".join([str(self.prime5_pos), self.prime5_seq, "--", self.prime3_seq, str(self.prime3_pos)])
+        return " ".join([str(self.prime5_pos), self.prime5_seq.upper(), "--", \
+                         self.prime3_seq.upper(), str(self.prime3_pos)])
 
     def isinrange(self, range_ir):
         if self.prime5_pos <= range_ir and self.prime3_pos >= -range_ir :
             return True
 
-    def isbestis(self, other_ir):
+    def isbestir(self, other_ir):
         diffa = (self.prime5_pos - self.prime3_pos)
-        diffb = (self.prime5_pos - self.prime3_pos)
+        diffb = (other_ir.prime5_pos - other_ir.prime3_pos)
         if diffa < diffb:
             return False
         elif diffa > diffb:
@@ -53,7 +54,7 @@ def searchir(prime5seq, prime3seq):
 
         ##Check IR in range and choice best one
         if invert.isinrange(range_ir_pos):
-            if invertRepeat is None or invert.isbestis(invertRepeat):
+            if invertRepeat is None or invert.isbestir(invertRepeat):
                 invertRepeat = str(invert)
                 
     return invertRepeat

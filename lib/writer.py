@@ -11,7 +11,8 @@ def writetabular(output,couples):
         "Inverted repeats","Left sequences","Right sequences"]) + "\n")
     for c in couples:
         towrite = []
-        towrite.extend([c.chrom, str(c.posend.pos), str(len(c.posend.clipend)), c.dr, str(c.posstart.pos + 1), str(len(c.posstart.clipstart))])
+        towrite.extend([c.chrom, str(c.posend.pos), str(len(c.posend.clipend)), \
+                        c.dr, str(c.posstart.pos + 1), str(len(c.posstart.clipstart))])
         if c.ir is None:
             towrite.append("No IR")
         else:
