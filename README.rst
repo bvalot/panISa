@@ -70,14 +70,14 @@ Chromosome:
   chromosome id 
 Left position:
   position of the last base of the direct repeat and the left bondary of
-  potential IS
+  the potential IS
 Clipped reads left:
   number of clipped reads (left position)
 Direct repeat:
   nucleotidic sequence of the direct repeat
 Right position:
   position of the first base of the direct repeat and the right
-  bondary of potential IS
+  bondary of the potential IS
 Clipped reads right:
   number of clipped reads (right position)
 Inverted repeats:
