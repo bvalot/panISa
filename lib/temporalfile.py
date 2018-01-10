@@ -12,7 +12,7 @@ import traceback
 
 
 def createfile():
-    newtempfile = tempfile.NamedTemporaryFile()
+    newtempfile = tempfile.NamedTemporaryFile('w+t')
     return newtempfile
 
         
@@ -21,13 +21,13 @@ def closefile(closefile):
 
 
 def writefile(writedata):
-    temp = tempfile.NamedTemporaryFile()
+    temp = tempfile.NamedTemporaryFile('w+t')
     try:
         temp.write(writedata)
         temp.seek(0)    
     except Exception:
         exe = traceback.format_exc()
-        print exe
+        print(exe)
     return temp
 
 
@@ -42,7 +42,7 @@ def readfile(tempread,separateBy):
             readdata = tempread.read().split(separateBy)[1:]
     except Exception:
         exe = traceback.format_exc()
-        print exe
+        print(exe)
     return readdata
 
 

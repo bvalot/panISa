@@ -6,7 +6,7 @@
 ##UMR 6249 Chrono-Environnement, Besançon, France
 ##Licence GPL
 
-import variables
+from . import variables
 
 class ClipRead():
     """Clip read object"""

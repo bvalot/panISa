@@ -9,9 +9,9 @@
 """Read Bam File and store clip read by position"""
 
 from pysam import AlignmentFile
-from clipread import ClipRead
-from position import Position, Positions
-import variables
+from .clipread import ClipRead
+from .position import Position, Positions
+from . import variables
 
 def parse(bamfile, minqual):
     bamhandle =  AlignmentFile(bamfile, 'rb')

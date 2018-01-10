@@ -7,7 +7,7 @@
 ##Licence GPL
 
 import subprocess
-import temporalfile as temp
+from . import temporalfile as temp
 
 class InvertRepeat():
     """Class containing inverted repeat at the 5' and the 3'"""
@@ -61,7 +61,7 @@ def searchir(prime5seq, prime3seq):
 
 
 def __performedirsearchwitheinverted(prime5seq, prime3seq):
-    """Take 5 and 3 prime consensus to search invert repeat zith einverted"""
+    """Take 5 and 3 prime consensus to search invert repeat with einverted"""
     intempfile = temp.writefile("\n".join([">",prime5seq+prime3seq]))
 
     outtempfile = temp.createfile()
@@ -90,7 +90,7 @@ def __getnextirfromeinverted(outseq_data,len_cons):
     if len(outseq_data) < 1: ##No IR
         yield None
     
-    for block in range(len(outseq_data)/2):#a block refers a result set that contains 2 lists
+    for block in range(int(len(outseq_data)/2)):#a block refers a result set that contains 2 lists
         line = 2*block
         ##create IR
         prime5_pos_t = int(outseq_data[0+line].split("\n")[0].split('_')[-2])

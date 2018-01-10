@@ -102,7 +102,7 @@ class Positions():
 
     def nextposition(self):
         """Create iterator that return position in the order of chromosome"""
-        posits = self.posdict.values()
+        posits = list(self.posdict.values())
         posits.sort()
         for pos in posits:
             yield pos

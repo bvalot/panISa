@@ -6,7 +6,7 @@
 ##UMR 6249 Chrono-Environnement, Besançon, France
 ##Licence GPL
 
-import invertedrepeat as ir
+from . import invertedrepeat as ir
 
 class Couple():
     """Class containing a start and end clip position with potential IS"""
