@@ -8,20 +8,20 @@ These reads overlapped on the direct repeat due to IS insertion.
 Finally, using a reconstruction of the beginning of both side of the IS, the software valided the IS by searching for inverted repeat region.
 
 ## Requirements and Installation
-###Requirements
+### Requirements
 The program used the python library **pysam** (>0.9)
 
 You need to install the **emboss** package:
 http://emboss.sourceforge.net
 
 In debian, type:
-   sudo apt-get install python-pysam emboss
+<pre>sudo apt-get install python-pysam emboss</pre>
 
-###Installation
+### Installation
 Download the current tarball and unzip it.
 
 Verify the installation using the test file
-	python panISa.py test/test.bam
+<pre>python panISa.py test/test.bam</pre>
 
 ## Command and Options
 <pre>python panISa.py [options] bam</pre>
@@ -39,10 +39,10 @@ Verify the installation using the test file
 PanISa return result in tabular format with the followinng columns:
 * Chromosome name: location of the potential IS
 * Left position: position of the first base of the direct repeat
-* Clip reads left (n): number of clip reads (left position
+* Clip reads left: number of clip reads (left position)
 * Direct repeat: nucleotidic sequence of the direct repeat
 * Right position: position of the last base of the direct repeat
-* Clip reads right (n): number of clip reads (right position)
+* Clip reads right: number of clip reads (right position)
 * Inverted repeats: nucleotidic sequence of inverted repeats and their position
 * IS left sequence: reconstruction of the left boundary of the potential IS
 * IS right sequence: reconstruction of the right boundary of the potential IS
