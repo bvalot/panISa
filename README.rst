@@ -7,14 +7,14 @@ data (bam file) in bacterial genomes.
 Idea
 ----
 
-The aim of panISa is to search for Insertion Sequence on NGS data
-without knowing the sequence of the potential IS present in the
-bacterial strain. To achieve that, the software identifies a signature of
-insertion in the alignment by counting clipped reads on the left and right
-position of the potential IS. These reads overlapped on the direct
-repeat due to IS insertion. Finally, using a reconstruction of the
-beginning of both side of the IS, the software valided the IS by
-searching for inverted repeat region.
+The panISa software searches for Insertion Sequences on NGS data ab
+initio (i.e. with a database-free approach) in bacterial genomes
+from short read data. Briefly, the software identifies a signature
+of insertion in the alignment by counting clipped reads on the left
+and right positions of the potential IS. These clipped reads overlap
+the direct repeats due to IS insertion. Finally, using a
+reconstruction of the beginning of both sides of the IS, panISa
+validates the IS by searching for inverted repeat regions.
 
 Requirements and Installation
 -----------------------------
