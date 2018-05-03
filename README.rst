@@ -75,18 +75,18 @@ PanISa returns result in tabular format with the following columns:
 
 Chromosome:
   chromosome id 
-Left position:
+Stop position:
   position of the last base of the direct repeat and the left bondary of
   the potential IS
-Clipped reads left:
-  number of clipped reads (left position)
+Stop clipped reads:
+  number of clipped reads (stop position)
 Direct repeat:
   nucleotidic sequence of the direct repeat
-Right position:
+Start position:
   position of the first base of the direct repeat and the right
   bondary of the potential IS
-Clipped reads right:
-  number of clipped reads (right position)
+Start clipped reads:
+  number of clipped reads (start position)
 Inverted repeats:
   nucleotidic sequence of inverted repeats and their position
 IS left sequence:
