@@ -10,10 +10,10 @@ Idea
 The panISa software searches for Insertion Sequences on NGS data ab
 initio (i.e. with a database-free approach) in bacterial genomes
 from short read data. Briefly, the software identifies a signature
-of insertion in the alignment by counting clipped reads on the left
-and right positions of the potential IS. These clipped reads overlap
+of insertion in the alignment by counting clipped reads on the start
+and end positions of the potential IS. These clipped reads overlap
 the direct repeats due to IS insertion. Finally, using a
-reconstruction of the beginning of both sides of the IS, panISa
+reconstruction of the beginning of both sides of the IS (IRL and IRR), panISa
 validates the IS by searching for inverted repeat regions.
 
 Requirements and Installation
@@ -75,24 +75,24 @@ PanISa returns result in tabular format with the following columns:
 
 Chromosome:
   chromosome id 
-Stop position:
+End position:
   position of the last base of the direct repeat and the left bondary of
-  the potential IS
-Stop clipped reads:
-  number of clipped reads (stop position)
+  the potential IS (IRL)
+End clipped reads:
+  number of clipped reads (end position)
 Direct repeat:
   nucleotidic sequence of the direct repeat
 Start position:
   position of the first base of the direct repeat and the right
-  bondary of the potential IS
+  bondary of the potential IS (IRR)
 Start clipped reads:
   number of clipped reads (start position)
 Inverted repeats:
   nucleotidic sequence of inverted repeats and their position
 IS left sequence:
-  reconstruction of the left boundary of the potential IS
+  reconstruction of the left boundary of the potential IS (IRL)
 IS right sequence:
-  reconstruction of the right boundary of the potential IS
+  reconstruction of the right boundary of the potential IS (IRR)
 
 Recommandation
 --------------

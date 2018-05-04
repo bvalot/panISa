@@ -7,8 +7,8 @@
 ##Licence GPL
 
 def writetabular(output,couples):
-    output.write("\t".join(["Chromosome","Left position", "Clipped read left", "Direct repeats","Right position", "Clipped read rigth", \
-        "Inverted repeats","Left sequences","Right sequences"]) + "\n")
+    output.write("\t".join(["Chromosome","End position", "End clipped reads", "Direct repeats","Start position", "Start clipped reads", \
+        "Inverted repeats","Left sequence","Right sequence"]) + "\n")
     for c in couples:
         towrite = []
         towrite.extend([c.chrom, str(c.posend.pos), str(len(c.posend.clipend)), \

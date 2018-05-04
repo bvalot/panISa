@@ -24,10 +24,10 @@ command.add_argument('-o', '--output', nargs="?", \
     help='Return list of IS insertion by alignment, default=stdout')
 command.add_argument('-q', '--quality', nargs="?", \
     type=int, default=20, \
-    help='Min alignment quality value to conserve a clip read, default=20')
+    help='Min alignment quality value to conserve a clipped read, default=20')
 command.add_argument('-m', '--minimun', nargs="?", \
     type=int, default=5, \
-    help='Min number of clipped read to look at IS on a position, default=5')
+    help='Min number of clipped reads to look at IS on a position, default=5')
 command.add_argument('-s', '--size', nargs="?", \
     type=int, default=60, \
     help='Maximun size of direct repeat region, default=60pb')
@@ -37,7 +37,7 @@ command.add_argument('-p', '--percentage', nargs="?", \
 command.add_argument('bam', type=argparse.FileType("r"), \
     help='Alignment on BAM/SAM format')
 command.add_argument('-v', '--version', action='version', \
-    version='%(prog)s 0.1.1')
+    version='%(prog)s 0.1.2')
 
 
 if __name__=='__main__':
