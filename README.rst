@@ -16,13 +16,17 @@ the direct repeats due to IS insertion. Finally, using a
 reconstruction of the beginning of both sides of the IS (IRL and IRR), panISa
 validates the IS by searching for inverted repeat regions.
 
+.. image:: principe.png
+   :alt: Principe of panISa
+   :align: center
+
 Requirements and Installation
 -----------------------------
 
 Requirements
 ~~~~~~~~~~~~
 
-The program used the python library **pysam** (>0.9)
+The program used the python library **pysam** (>=0.9) and **request** (>=2.12)
 
 You need to install `the emboss package <http://emboss.sourceforge.net>`_
 
@@ -30,7 +34,7 @@ In debian, type:
 
 .. raw:: html
 
-   <pre>sudo apt-get install python-pysam emboss</pre>
+   <pre>sudo apt-get install python-pysam python-requests emboss</pre>
 
 Installation
 ~~~~~~~~~~~~
@@ -93,6 +97,12 @@ IS left sequence:
   reconstruction of the left boundary of the potential IS (IRL)
 IS right sequence:
   reconstruction of the right boundary of the potential IS (IRR)
+
+PanISa results can be search for homology against ISFinder to find IS familly using the script ISFinder_search.py
+
+.. raw:: html
+
+   <pre>python ISFinder_search.py [options] panISa results</pre>
 
 Recommandation
 --------------
