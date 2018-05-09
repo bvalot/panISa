@@ -67,8 +67,8 @@ Options
 -h     show this help message and exit
 -o     Return list of IS insertion by alignment [stdout]
 -q     Minimum alignment quality value to conserve a clipped read [20]
--m     Minimum number of clipped reads to look at IS on a position [5]
--s     Maximum size of direct repeat region [15bp]
+-m     Minimum number of clipped reads to look at IS on a position [10]
+-s     Maximum size of direct repeat region [20bp]
 -p     Minimum percentage of same base to create consensus [0.8]
 -v     show program's version number and exit
 
