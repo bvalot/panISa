@@ -37,7 +37,7 @@ command.add_argument('-e', '--evalue', nargs="?", \
 command.add_argument('-a', '--alignment', nargs="?", \
     type=float, default=80, choices=range(0,101), metavar="0-100", \
     help='Percentage of expected alignment (default:80)')
-command.add_argument('file', nargs="*", type=argparse.FileType("r"), \
+command.add_argument('file', nargs="+", type=argparse.FileType("r"), \
     help='PanISa result files to merge')
 command.add_argument('-v', '--version', action='version', \
     version='%(prog)s 0.0.2')

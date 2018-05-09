@@ -121,8 +121,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['pysam>=0.9'],  # Optional
-    install_requires=['requests>=2.12'],  # Optional
+    install_requires=['pysam>=0.9', 'requests>=2.12'],  # Optional
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
@@ -157,7 +156,7 @@ setup(
     # "scripts" keyword. Entry points provide cross-platform support and allow
     # `pip` to create the appropriate form of executable for the target
     # platform.
-    scripts=['panISa.py']
+    scripts=['panISa.py', 'ISFinder_search.py']
     # For example, the following would provide a command called `sample` which
     # executes the function `main` from this package when invoked:
     # entry_points={  # Optional
