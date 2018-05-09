@@ -98,6 +98,9 @@ IS left sequence:
 IS right sequence:
   reconstruction of the right boundary of the potential IS (IRR)
 
+Validation
+~~~~~~~~~~
+  
 PanISa results can be search for homology against ISFinder to find IS familly using the script ISFinder_search.py
 
 .. raw:: html

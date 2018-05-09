@@ -26,11 +26,11 @@ command.add_argument('-q', '--quality', nargs="?", \
     type=int, default=20, \
     help='Min alignment quality value to conserve a clipped read, default=20')
 command.add_argument('-m', '--minimun', nargs="?", \
-    type=int, default=5, \
-    help='Min number of clipped reads to look at IS on a position, default=5')
+    type=int, default=10, \
+    help='Min number of clipped reads to look at IS on a position, default=10')
 command.add_argument('-s', '--size', nargs="?", \
-    type=int, default=60, \
-    help='Maximun size of direct repeat region, default=60pb')
+    type=int, default=20, \
+    help='Maximun size of direct repeat region, default=20pb')
 command.add_argument('-p', '--percentage', nargs="?", \
     type=float, default=0.8, \
     help='Minimum percentage of same base to create consensus, default=0.8')
@@ -52,8 +52,6 @@ if __name__=='__main__':
 
     ##filter positions with not enought clipread
     positions.filterposition(args.minimun)
-    # for pos in positions.nextposition():
-    #     output.write(str(pos) + "\n")
         
     ##find close position with both start and end clip to make a couple
     couples = Couples()

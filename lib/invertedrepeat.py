@@ -44,6 +44,10 @@ def searchir(prime5seq, prime3seq):
     """Searched ir from 5 to 3 prime consensus and return InvertRepeat class or None"""
     range_ir_pos = 15
 
+    ##test if consensus sequence is not empty
+    if prime5seq == "" or prime3seq:
+        return None
+    
     outseq_data = __performedirsearchwitheinverted(prime5seq, prime3seq)
     len_cons = __lenofconsensus(prime5seq, prime3seq)
 
