@@ -74,7 +74,7 @@ def read_panisa(files, header, remove):
             if len(tab) != 9:
                 raise Exception("Not a panISa output or incorrect\n"+line)
             result = {k:v for k,v in zip(header,tab)}
-            result["sample"] = fi.name.rstrip(remove)
+            result["sample"] = fi.name.split("/")[-1].rstrip(remove)
             result["chrompos"] = result.get("chrom")+"_"+result.get("lpos")
             mergedPanISa.append(result)
     return mergedPanISa
