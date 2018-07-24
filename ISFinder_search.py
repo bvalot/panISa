@@ -40,7 +40,7 @@ command.add_argument('-a', '--alignment', nargs="?", \
 command.add_argument('file', nargs="+", type=argparse.FileType("r"), \
     help='PanISa result files to merge')
 command.add_argument('-v', '--version', action='version', \
-    version='%(prog)s 0.0.2')
+    version='%(prog)s 0.1.4')
 
 
 class URLParser(HTMLParser):

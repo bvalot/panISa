@@ -37,7 +37,7 @@ command.add_argument('-p', '--percentage', nargs="?", \
 command.add_argument('bam', type=argparse.FileType("r"), \
     help='Alignment on BAM/SAM format')
 command.add_argument('-v', '--version', action='version', \
-    version='%(prog)s 0.1.2')
+    version='%(prog)s 0.1.4')
 
 
 if __name__=='__main__':
