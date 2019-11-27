@@ -111,3 +111,14 @@ Recommandation
 --------------
 
 panISa works well with the alignment from **bwa** software.
+
+Citation
+--------------
+
+I you use the panISa software, please cite the following paper:
+
+**panISa: ab initio detection of insertion sequences in bacterial genomes from short read sequence data.** 
+Treepong P, Guyeux C, Meunier A, Couchoud C, Hocquet D, Valot B. 
+Bioinformatics. 2018, 34(22):3795-3800. 
+
+doi: 10.1093/bioinformatics/bty479
