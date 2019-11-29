@@ -65,6 +65,8 @@ def read_gff(fi, feature):
             break
         if line[0] == "#":
             continue
+        if line == "":
+            continue
         pos = Pos(line.rstrip("\n").split("\t"))
         if pos.feature == feature:
             gffs.append(pos)

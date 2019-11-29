@@ -84,7 +84,7 @@ if __name__=='__main__':
 
     ## load gffs informations
     gffs = gff.read_gff(args.gff, args.feature)
-    print(str(len(gffs)))
+    # print(str(len(gffs)))
 
     ## Verify  ISFinder input
     ## Sample Chromosome Start_Position Stop_Position Potential_sequence Potential_IS Alignment
