@@ -52,12 +52,12 @@ def searchSurround(chrom, start, end, gffs):
             next_ = g
     return prev_, next_
 
-def printResult(res, inside, next_, prev_, ident, annot):
+def printResult(res, inside, prev_, next_, ident, annot):
     """Add information of ID, start, stop, strand, annotation"""
     res2 = list(res)
-    addAnnot(res2, next_, ident, annot)
-    addAnnot(res2, inside, ident, annot)
     addAnnot(res2, prev_, ident, annot)
+    addAnnot(res2, inside, ident, annot)
+    addAnnot(res2, next_, ident, annot)
     return res2
         
 def addAnnot(res2, gff, ident, annot):
@@ -107,4 +107,4 @@ if __name__=='__main__':
         else:
             prev_, next_ = searchSurround(res[1], int(res[2]), int(res[3]), gffs)
             # print(res[1] + "|" + res[2]  + " " + str(prev_) + " " + str(next_))
-            output.write("\t".join(printResult(res, None, next_, prev_, args.id, args.annote)) + "\n")
+            output.write("\t".join(printResult(res, None, prev_, next_, args.id, args.annote)) + "\n")
