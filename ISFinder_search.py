@@ -104,13 +104,14 @@ def search_ISfinder(potential_sequence):
                       data = {'title' : 'test', 'seq' : potential_sequence, 'seqfile' \
                               : '', 'database' : 'ISfindernt', 'prog' : 'blastn', 'blast' \
                               : 'ok', 'alignment' : '7', 'wordsize' : '11','expect' : '10.0' \
-                              , 'gapcost' : '5 2'})
+                              , 'gapcost' : '5 2'},
+                     verify=False)
     ##get url result
     parser = URLParser()
     parser.feed(r.text)
 
     ##downoad blast result
-    o = requests.get('https://www-is.biotoul.fr/blast/' + parser.urlres)    
+    o = requests.get('https://www-is.biotoul.fr/blast/' + parser.urlres, verify=False)    
     parser = BlastParser()
     parser.feed(o.text)
     return parser.result
