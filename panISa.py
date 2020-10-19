@@ -15,6 +15,7 @@ import tempfile
 from lib import bamreader
 from lib.couple  import Couples
 from lib.writer import writetabular
+from lib import variables
 
 desc = "Search integrative element (IS) insertion on a genome using BAM alignment"
 command = argparse.ArgumentParser(prog='panISa.py', \
@@ -37,7 +38,7 @@ command.add_argument('-p', '--percentage', nargs="?", \
 command.add_argument('bam', type=argparse.FileType("r"), \
     help='Alignment on BAM/SAM format')
 command.add_argument('-v', '--version', action='version', \
-    version='%(prog)s 0.1.4')
+    version='%(prog)s ' + variables.version)
 
 
 if __name__=='__main__':

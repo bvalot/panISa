@@ -11,6 +11,7 @@
 import argparse
 import sys
 import requests
+from lib import variables
 try:
     from HTMLParser import HTMLParser
 except ImportError:
@@ -40,7 +41,7 @@ command.add_argument('-a', '--alignment', nargs="?", \
 command.add_argument('file', nargs="+", type=argparse.FileType("r"), \
     help='PanISa result files to merge')
 command.add_argument('-v', '--version', action='version', \
-    version='%(prog)s 0.1.4')
+    version='%(prog)s ' + variables.version)
 
 
 class URLParser(HTMLParser):

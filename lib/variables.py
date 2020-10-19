@@ -9,3 +9,4 @@
 """List of global variable setup"""
 
 cigarclip = set([4,5])
+version="0.1.5"

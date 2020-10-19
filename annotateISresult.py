@@ -10,7 +10,8 @@
 
 import argparse
 import sys
-from lib import gff 
+from lib import gff
+from lib import variables
 
 desc = "annotated an ISFinder result with gene informations"
 command = argparse.ArgumentParser(prog='annotateISresult.py', \
@@ -32,7 +33,7 @@ command.add_argument('isfinder', type=argparse.FileType("r"), \
 command.add_argument('gff', type=argparse.FileType("r"), \
     help='Gff file containing annotation of genome')
 command.add_argument('-v', '--version', action='version', \
-    version='%(prog)s 0.1.0')
+    version='%(prog)s ' + variables.version)
 
 def splitline(line):
     return line.rstrip("\n").split("\t")
