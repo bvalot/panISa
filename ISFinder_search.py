@@ -12,6 +12,9 @@ import argparse
 import sys
 import requests
 from lib import variables
+import urllib3
+urllib3.disable_warnings()
+
 try:
     from HTMLParser import HTMLParser
 except ImportError:
