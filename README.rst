@@ -23,6 +23,15 @@ validates the IS by searching for inverted repeat regions.
 Requirements and Installation
 -----------------------------
 
+Conda installation
+~~~~~~~~~~~~~~~~~~
+
+You can easy install panisa program and requirements using conda:
+
+.. raw:: html
+
+   <pre>conda install -c bioconda panisa</pre>
+
 Requirements
 ~~~~~~~~~~~~
 
