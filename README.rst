@@ -28,9 +28,9 @@ Conda installation
 
 You can easy install panisa program and requirements using conda:
 
-.. raw:: html
+.. code-block:: bash
 
-   <pre>conda install -c bioconda panisa</pre>
+   conda install -c bioconda panisa
 
 Requirements
 ~~~~~~~~~~~~
@@ -41,9 +41,9 @@ You need to install `the emboss package <http://emboss.sourceforge.net>`_
 
 In debian, type:
 
-.. raw:: html
+.. code-block:: bash
 
-   <pre>sudo apt-get install python-pysam python-requests emboss</pre>
+   sudo apt-get install python-pysam python-requests emboss
 
 Installation
 ~~~~~~~~~~~~
@@ -52,23 +52,23 @@ Download the current tarball and unzip it.
 
 Verify the installation using the test file
 
-.. raw:: html
+.. code-block:: bash
 
-   <pre>python panISa.py test/test.bam</pre>
+   python panISa.py test/test.bam
 
 Alternatively, you can install from `PyPI repository <https://pypi.python.org/pypi>`_
 
-.. raw:: html
+.. code-block:: bash
 
-   <pre>pip install panisa</pre>
+   pip install panisa
 
    
 Command and Options
 -------------------
 
-.. raw:: html
+.. code-block:: bash
 
-   <pre>python panISa.py [options] bam</pre>
+   python panISa.py [options] bam
 
 Options
 ~~~~~~~
@@ -112,9 +112,9 @@ Validation
   
 PanISa results can be search for homology against ISFinder to find IS familly using the script ISFinder_search.py
 
-.. raw:: html
+.. code-block:: bash
 
-   <pre>python ISFinder_search.py [options] panISa results</pre>
+   python ISFinder_search.py [options] panISa results
 
 Recommandation
 --------------
