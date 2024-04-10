@@ -2,3 +2,7 @@
 *~
 *#
 *tar.gz
+
+dist/
+build/
+panisa.egg-info/
