@@ -45,9 +45,9 @@ def searchir(prime5seq, prime3seq):
     range_ir_pos = 15
 
     ##test if consensus sequence is not empty
-    if prime5seq == "" or prime3seq:
+    if prime5seq == "" or prime3seq == "":
         return None
-    
+
     outseq_data = __performedirsearchwitheinverted(prime5seq, prime3seq)
     len_cons = __lenofconsensus(prime5seq, prime3seq)
 
