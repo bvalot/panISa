@@ -1,3 +1,10 @@
+.. image:: https://badge.fury.io/py/panISa.svg
+    :target: https://pypi.org/project/panISa/
+    :alt: Latest PyPI version
+.. image:: https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat
+    :target: http://bioconda.github.io/recipes/panisa/README.html
+    :alt: Conda
+
 panISa
 ======
 
